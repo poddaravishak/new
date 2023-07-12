@@ -1,0 +1,48 @@
+.sectionmid {
+  display: flex;
+  height: 400px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.first-div {
+  width: 40%;
+  background-color: #c6f5f5; /* Red color */
+  overflow: auto;
+}
+
+.second-div {
+  width: 60%;
+  background-color: #6585af; /* Green color */
+}
+.containernotice {
+  display: flex;
+  margin: 20px;
+}
+
+.containernotice .blue-div {
+  background-color: rgb(69, 179, 201);
+  color: white;
+  padding: 20px;
+  align-items: center;
+}
+
+.containernotice .text-div {
+  background-color: rgb(217, 217, 29);
+  padding: 20px;
+  width: 500px;
+  display: flex;
+
+  align-items: center;
+}
+
+.containernotice .text-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.containernotice .text-content h3 {
+  margin-top: 0;
+}

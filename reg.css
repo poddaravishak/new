@@ -1,0 +1,70 @@
+body {
+  background-image: linear-gradient(-225deg, #e3fdf5 0%, #ffe6fa 100%);
+  background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+
+  font-family: "Vibur", cursive;
+  /*   the main font */
+  font-family: "Abel", sans-serif;
+  opacity: 0.95;
+  /* background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%); */
+}
+
+.container form {
+  width: 450px;
+  min-height: auto;
+  height: auto;
+  border-radius: 5px;
+  margin: 2% auto;
+  box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
+  padding: 2%;
+  background-image: linear-gradient(-225deg, #e3fdf5 50%, #ffe6fa 50%);
+}
+.container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.container label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.container input[type="text"],
+.container input[type="date"],
+.container input[type="file"],
+.container input[type="email"],
+.container input[type="password"],
+.container input[type="re-Password"],
+.container input[type="number"],
+.container select {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 5px;
+}
+
+.container textarea {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 5px;
+}
+
+.container input[type="submit"] {
+  background-color: #87e087;
+  color: #443030;
+  padding: 10px 20px;
+  border: none;
+  margin-right: 30px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.container input[type="submit"]:hover {
+  background-color: #4585a0;
+}
