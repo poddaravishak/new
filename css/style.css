@@ -447,18 +447,3 @@ body {
   background-color: #ffffff;
   overflow-x: hidden;
 }
-
-.sectionmid {
-  display: flex;
-  height: 200px; /* Adjust height as needed */
-}
-
-.first-div {
-  width: 40%;
-  background-color: #ff0000; /* Red color */
-}
-
-.second-div {
-  width: 60%;
-  background-color: #00ff00; /* Green color */
-}

@@ -1,48 +1,78 @@
 .sectionmid {
-  display: flex;
-  height: 400px;
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 50px;
 }
 
-.first-div {
-  width: 40%;
-  background-color: #c6f5f5; /* Red color */
+.sectionmid .blue-div {
+  background-color: rgb(240, 236, 235);
+  border-radius: 10px;
+  width: 50%;
+  height: 300px;
   overflow: auto;
 }
 
-.second-div {
-  width: 60%;
-  background-color: #6585af; /* Green color */
+.sectionmid .blue-div h1 {
+  text-align: center;
+  font-size: 2rem;
+  color: rgb(0, 0, 0);
+  font-weight: 600;
+  padding-top: 20px;
 }
-.containernotice {
+
+.sectionmid .blue-div table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.sectionmid .blue-div table th,
+.sectionmid .blue-div table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.sectionmid .blue-div table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.sectionmid .blue-div table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.sectionmid .blue-div table tbody tr:hover {
+  background-color: #eaf6ff;
+}
+
+.sectionmid .blue-div table td:last-child {
+  white-space: nowrap;
+}
+.thirdsection {
   display: flex;
-  margin: 20px;
+  justify-content: center;
+  align-items: center;
+  background-color: whitesmoke;
+  margin-top: 100px;
+  margin-bottom: 200px;
 }
 
-.containernotice .blue-div {
-  background-color: rgb(69, 179, 201);
-  color: white;
-  padding: 20px;
-  align-items: center;
-}
-
-.containernotice .text-div {
-  background-color: rgb(217, 217, 29);
-  padding: 20px;
-  width: 500px;
-  display: flex;
-
-  align-items: center;
-}
-
-.containernotice .text-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.thirdsection .custom-div {
   text-align: center;
 }
 
-.containernotice .text-content h3 {
-  margin-top: 0;
+.thirdsection .image-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.thirdsection .image-gallery img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 5px;
 }
