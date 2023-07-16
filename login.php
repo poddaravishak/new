@@ -43,20 +43,20 @@ mysqli_close($connection);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="login.css" />
+    <link rel="stylesheet" href="hf.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    />
+
     <title>Login</title>
 </head>
 <body>
-<div class="navbar">
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">Long Text Menu Item</a></li>
-            <li><a href="#">Another Long Menu Item</a></li>
-            <li><a href="#">More Long Menu Item</a></li>
-        </ul>
-    </div>
+<?php
+include 'nav.php';
+?>
+
     <div class="container">
         <h2>Login</h2>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
@@ -78,6 +78,9 @@ mysqli_close($connection);
             ?>
           </form>
     </div>
+    <?php
+include 'footter.php';
+?>
 </body>
 </html>
 

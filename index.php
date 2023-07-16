@@ -15,6 +15,12 @@
     <meta name="author" content="" />
 
     <title>alumni</title>
+    <link rel="stylesheet" href="hf.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    />
 
     <!-- bootstrap core css -->
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
@@ -351,22 +357,47 @@
     </table>
   </div>
 </section>
-
+<h1> Image Gallery</h1>
 <section class="thirdsection">
-  <div class="custom-div">
-    <h2>Additional Section</h2>
-    <div class="image-gallery">
-      <img src="gra2.png" alt="Image 1">
-      <img src="gra2.png" alt="Image 2">
-      <img src="gra2.png" alt="Image 3">
-      <!-- Add more images here -->
-    </div>
-  </div>
+    <?php
+    // Database connection configuration
+    $host = 'localhost';
+    $username = 'root';
+    $password = '';
+    $database = 'alumni';
+
+    // Create a new PDO instance
+    $pdo = new PDO("mysql:host=$host;dbname=$database", $username, $password);
+
+    // Fetch rows from the gallery table
+    $stmt = $pdo->query("SELECT id, title, image FROM gallery");
+
+    // Display the rows
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $id = $row['id'];
+        $title = $row['title'];
+        $image = $row['image'];
+
+        echo '
+        <div class="gallery">
+            <a target="_blank" href="images/' . $image . '">
+                <img src="uploads/' . $image . '" alt="' . $title . '" width="600" height="400">
+            </a>
+            <div class="desc">' . $title . '</div>
+        </div>';
+    }
+
+    // Close the database connection
+    $pdo = null;
+    ?>
 </section>
+
 
  
 
-
+<?php
+include 'footter.php';
+?>
     <!-- jQery -->
     <script src="js/jquery-3.4.1.min.js"></script>
     <!-- bootstrap js -->

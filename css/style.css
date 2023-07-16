@@ -110,6 +110,7 @@ a:focus {
   padding: 3px 15px;
   margin: 10px 15px;
   color: #ffffff;
+  font-family: monospace;
   text-align: center;
   text-transform: uppercase;
 }
@@ -386,6 +387,7 @@ a:focus {
 }
 
 .slider_section .detail-box p {
+  font-family: monospace;
   color: #6d6d6d;
 }
 
@@ -395,6 +397,7 @@ a:focus {
   background-color: #252525;
   color: #ffffff;
   border-radius: 5px;
+
   margin-top: 15px;
 }
 

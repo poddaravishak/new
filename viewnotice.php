@@ -47,9 +47,16 @@ mysqli_close($connection);
 <html>
 <head>
   <title>View Notice</title>
+  <link rel="stylesheet" href="hf.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    />
   <style>
   .card {
-    margin-top: 200px;
+    padding-top: 50px;
+    margin-top: 220px;
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 20px;
@@ -84,6 +91,21 @@ mysqli_close($connection);
 
 </head>
 <body>
+<nav>
+      <input type="checkbox" id="check" />
+      <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+      </label>
+      <label class="logo">BAUETAA</label>
+      <ul>
+        <li><a class="" href="#">Home</a></li>
+        <li><a href="#">Program & Events</a></li>
+        <li><a href="#">ALUMNI STORY </a></li>
+        <li><a href="#">All Alumni</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </nav>
+    
   <section class="sectionmid">
     <div class="blue-div">
       <div class="card">
@@ -96,5 +118,46 @@ mysqli_close($connection);
       </div>
     </div>
   </section>
+  <footer class="footer">
+      <div class="containerfootter">
+        <div class="row">
+          <div class="footer-col">
+            <h4>Usefull Link</h4>
+            <ul>
+              <li><a href="#">University Website</a></li>
+              <li><a href="#">Career Services</a></li>
+              <li><a href="#">Events and Reunions</a></li>
+              <li><a href="#">Mentorship Programs</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>get help</h4>
+            <ul>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Report Problem</a></li>
+              <li><a href="#">Contact us</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>online shop</h4>
+            <ul>
+              <li><a href="#">watch</a></li>
+              <li><a href="#">bag</a></li>
+              <li><a href="#">shoes</a></li>
+              <li><a href="#">dress</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>follow us</h4>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
 </body>
 </html>

@@ -2,7 +2,13 @@
 <html>
 <head>
   <title>Student Profile View</title>
-  
+  <link rel="stylesheet" href="hf.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    />
+
   <style>
     
     .container {
@@ -34,15 +40,16 @@
   font-size: 16px;
   border: none;
   border-radius: 5px 0 0 5px;
-  border: 2px solid #4287f5;
+  border: 2px solid #1fc9af;
 }
 
 .container input[type="submit"] {
   padding: 10px 20px;
-  background-color: #4287f5;
+  background-color: #1fc9af;
   color: #fff;
   font-size: 16px;
   border: none;
+  padding-left:20px;
   border-radius: 0 5px 5px 0;
   cursor: pointer;
 }
@@ -60,7 +67,7 @@
     border: 1px solid #1fc9af;
     border-radius: 5px;
     padding: 10px;
-    background-color: #edac16;
+    background-color: gray;
     margin: 10px;
     width: 300px;
     text-align: center;
@@ -75,9 +82,12 @@
     margin-bottom: 10px;
     cursor: pointer;
   }
-
+  .profile-card h1{
+    color:white;
+  }
   .profile-card p {
     font-size: 14px;
+    color: white;
     margin-bottom: 10px;
   }
 
@@ -122,6 +132,12 @@
   </style>
 </head>
 <body>
+<?php
+include 'nav.php';
+?>
+
+
+
   <div class="container">
     
   <form method="GET" action="">
@@ -194,7 +210,9 @@
     </div>
     <span class="close-button">&times;</span>
   </div>
-
+  <?php
+include 'footter.php';
+?>
   <script>
     function showFullScreen(img) {
       var modalContainer = document.getElementById("modal-container");

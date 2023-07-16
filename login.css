@@ -1,7 +1,10 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f1f1f1;
-  background-image: linear-gradient(-225deg, #249b77 50%, #b478a8 50%);
+  margin: 0;
+  background-image: url("https://raw.githubusercontent.com/poddaravishak/logicbot/master/bauetcampus.jpg");
+  background-size: cover; /* Adjust as needed */
+  background-position: center center; /* Adjust as needed */
+  background-repeat: no-repeat; /* Adjust as needed */
 }
 
 .container {
@@ -14,6 +17,7 @@ body {
   text-align: center;
   background-image: linear-gradient(-225deg, #e3fdf5 50%, #ffe6fa 50%);
   margin-top: 100px;
+  margin-bottom: 85px;
 }
 
 h2 {

@@ -8,27 +8,25 @@
   padding: 2%;
   background-image: linear-gradient(-225deg, #E3FDF5 50%, #FFE6FA 50%);
 } */
+
 body {
-  display: flex;
+  background-image: url("https://raw.githubusercontent.com/poddaravishak/logicbot/master/bauetcampus.jpg");
+}
+form {
   justify-content: center;
   align-items: center;
-
-  margin: 20px auto;
-  padding: 0;
-}
-
-form {
   width: 400px;
   padding: 20px;
+  margin-left: 750px;
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
+  margin-bottom: 20px;
   background-image: linear-gradient(-225deg, #e3fdf5 50%, #ffe6fa 50%);
 }
 
 label {
-  display: block;
   margin-bottom: 10px;
 }
 

@@ -58,9 +58,21 @@ mysqli_close($connection);
 <html>
 <head>
     <title>Student Information Upload</title>
+    <link rel="stylesheet" href="hf.css" />
     <link rel="stylesheet" href="reg.css">
+    
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    />
+
 </head>
 <body>
+<?php
+include 'nav.php';
+?>
+
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
         <label for="student_id">Student ID:</label>
         <input type="number" name="student_id" id="student_id" required>
@@ -119,5 +131,8 @@ mysqli_close($connection);
 
         <input type="submit" value="Submit">
     </form>
+    <?php
+include 'footter.php';
+?>
 </body>
 </html>
