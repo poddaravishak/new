@@ -7,7 +7,8 @@
 }
 
 .sectionmid .blue-div {
-  background-color: rgb(240, 236, 235);
+  background-color: rgb(235, 235, 235);
+
   border-radius: 10px;
   width: 50%;
   height: 300px;
@@ -36,6 +37,16 @@
   border-bottom: 1px solid #ccc;
 }
 
+.sectionmid .blue-div table td a {
+  background-color: #00c6a9;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+  color: #ffffff;
+}
+
 .sectionmid .blue-div table th {
   background-color: #f2f2f2;
   font-weight: bold;
@@ -53,6 +64,8 @@
   white-space: nowrap;
 }
 .thirdsection {
+  background-image: url("https://cdn.shopify.com/s/files/1/0533/2089/files/5-websites-to-download-free-subtle-textures-subtle.jpg?5724472906039650661");
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,4 +93,8 @@ div.gallery img {
 div.desc {
   padding: 15px;
   text-align: center;
+}
+
+.hero_area .header_section .container a span {
+  font-family: monospace;
 }

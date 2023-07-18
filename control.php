@@ -160,7 +160,7 @@ $email = $_SESSION['email'];
                     echo "<td>" . $row['batch'] . "</td>";
                     echo "<td>" . $row['department'] . "</td>";
                     echo "<td>" . $row['session_year'] . "</td>";
-                    echo "<td><img src='/photo_uploads/" . $row['photo'] . "'></td>";
+                    echo "<td><img src='" . $row['photo'] . "'></td>";
 
                     echo "<td>" . $row['mobile'] . "</td>";
                     echo "<td>" . $row['email'] . "</td>";
