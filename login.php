@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['email'] = $email;
         $_SESSION['password'] = $password;
         // Redirect to profile page or any other desired page
-        header('Location: profile.php');
+        header('Location: stdprofile.php');
         exit;
     } 
     

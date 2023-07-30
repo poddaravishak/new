@@ -98,3 +98,7 @@ div.desc {
 .hero_area .header_section .container a span {
   font-family: monospace;
 }
+
+body {
+  cursor: url("/cursor.png"), auto;
+}
