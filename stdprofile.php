@@ -53,16 +53,28 @@ mysqli_close($connection);
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Facebook</title>
+    <title>My profile</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="css/std.min.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="css/std.min.css" /> -->
     <link rel="stylesheet" type="text/css" href="css/std.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=FontName&display=swap" />
+   
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="hf.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    />
+
 </head>
 
 <body>
+    
+<?php
+include 'nav.php';
+?>
     <div class="popop-background"></div>
     <div class="thim-div">
         <div class="hadr-thim-bar">
@@ -116,7 +128,7 @@ mysqli_close($connection);
             </div>
         </div>
     </section>
-
+ 
     <section class="post-section">
         <div class="post-section-in">
             <section class="info-section">
@@ -206,7 +218,12 @@ mysqli_close($connection);
                         }
                         ?>
 
-<div class="postdiv" sty>
+<div class="postdiv" style="
+    margin-left: -500px;
+    width: 500px;
+    margin-bottom: 20px;
+" >
+
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
         <!-- Textarea for the post content -->
         <textarea name="post_content" placeholder="Write your post..."></textarea>
@@ -224,7 +241,10 @@ mysqli_close($connection);
         <input type="submit" value="Post" />
     </form>
 </div>
-<section>
+<section style="
+    width: 550px;
+    display: inline-block;
+">
 
 <div class="hello" style="display: inline;">
 <?php
@@ -236,7 +256,7 @@ if (!$post_connection) {
 }
 
 // Retrieve posts from the all_post table for the current user
-$post_query = "SELECT * FROM all_post WHERE student_id = '$student_id'";
+$post_query = "SELECT * FROM all_post WHERE student_id = '$student_id' ORDER BY post_id DESC";
 $post_result = mysqli_query($post_connection, $post_query);
 
 // Check if there are any posts for the current user
@@ -244,6 +264,7 @@ if (mysqli_num_rows($post_result) > 0) {
     // Loop through each post and display its content
     while ($post_row = mysqli_fetch_assoc($post_result)) {
         $post_content = $post_row['post_content'];
+        $post_date = $post_row['post_date'];
         echo <<<HTML
         <div class="box-design post-div">
             <div class="post-infarmation">
@@ -257,7 +278,7 @@ if (mysqli_num_rows($post_result) > 0) {
                 </div>
                 <div class="post-three-dot">
                     <h2><a href="#" id="profile_name">$first_name</a></h2>
-                    <p><a href="#">date</a></p>
+                    <p><a href="#">$post_date</a></p>
                     <span class="thre-dto-btn fas fa-ellipsis-h"></span>
                 </div>
             </div>
@@ -286,9 +307,25 @@ mysqli_close($post_connection);
 ?>
 </div>
 </section>
+
+
     <script>
         // JavaScript to set the date input to the current date
         document.getElementById("post_date").valueAsDate = new Date();
+
+
+         // JavaScript to show the dropdown menu for the "Delete" option
+    const ellipsisButtons = document.querySelectorAll(".thre-dto-btn");
+
+ellipsisButtons.forEach(button => {
+    button.addEventListener("click", event => {
+        const postId = event.target.dataset.postId;
+        const dropdownMenu = event.target.nextElementSibling;
+        dropdownMenu.style.display = "block";
+    });
+});
     </script>
+
+
 </body>
 </html>

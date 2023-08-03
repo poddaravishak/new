@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Submission Results</title>
+  </head>
+  <body>
+    <h1>Form Submission Results</h1>
+    <div id="results">
+      <p>Full Name: <span id="fullName"></span></p>
+      <p>Mobile Number: <span id="mobileNumber"></span></p>
+      <p>Graduate Status: <span id="isGraduate"></span></p>
+      <p>Email: <span id="email"></span></p>
+    </div>
+
+    <script>
+      // Display the form information from localStorage on the results.html page
+      document.getElementById("fullName").innerText =
+        localStorage.getItem("fullName");
+      document.getElementById("mobileNumber").innerText =
+        localStorage.getItem("mobileNumber");
+      document.getElementById("isGraduate").innerText =
+        localStorage.getItem("isGraduate");
+      document.getElementById("email").innerText =
+        localStorage.getItem("email");
+    </script>
+  </body>
+</html>

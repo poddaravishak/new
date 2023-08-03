@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+
+      .landing-page {
+        position: relative;
+        height: 100%;
+        background-color: #f0f0f0;
+        overflow: hidden;
+      }
+
+      .background-photo {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"); /* Replace with the path to your background photo */
+        background-size: cover;
+        background-position: center;
+        filter: blur(10px);
+      }
+
+      .content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 46px;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 25px;
+        margin-bottom: 30px;
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 18px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      /* Previous styles */
+
+      .popup-form {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .form-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+      }
+
+      h2 {
+        font-size: 24px;
+        margin-bottom: 15px;
+      }
+
+      /* styles.css */
+
+      /* Form Container */
+      form {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 40px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+       
+      }
+
+      /* Form Fields */
+      form input[type="text"],
+      form input[type="tel"],
+      form input[type="email"],
+      form textarea,
+      form select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      /* Form Radio Buttons */
+      form label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+
+      form input[type="radio"] {
+        margin-right: 5px;
+      }
+
+      /* Form Submit Button */
+      form button[type="submit"] {
+        padding: 10px 20px;
+        font-size: 18px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      form button[type="submit"]:hover {
+        background-color: #45a049;
+      }
+      /* Amount of Donation Input */
+      form input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        padding-left: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        font-size: 16px;
+        color: #333;
+      }
+
+      /* Styling the placeholder text of the input field */
+      form input[type="number"]::placeholder {
+        color: #888;
+      }
+
+      /* Styling the input when it's in focus */
+      form input[type="number"]:focus {
+        outline: none;
+        border-color: #4caf50;
+        box-shadow: 0 0 3px rgba(76, 175, 80, 0.7);
+      }
+      .form-container img {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+        display: block;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="landing-page">
+      <div class="background-photo"></div>
+      <div class="content">
+        <h1>Welcome to Our Website</h1>
+        <p>Discover amazing things with us!</p>
+        <button id="getStartedBtn">Get Started</button>
+      </div>
+    </div>
+
+    <!-- The Popup Form -->
+    <div class="popup-form" id="popupForm">
+      <div class="form-container">
+        <span class="close-btn" id="closeBtn">&times;</span>
+       <img src="/charity.png">
+        <form>
+          <input
+            type="text"
+            name="full-name"
+            placeholder="Full Name"
+            required
+          />
+          <input
+            type="tel"
+            name="mobile-number"
+            placeholder="Mobile Number"
+            required
+          />
+          <input type="email" name="email" placeholder="Email" required />
+          <input
+            type="text"
+            name="mailing-address"
+            placeholder="Mailing Address"
+            required
+          />
+
+          <label>BUET Graduate? </label>
+            <input type="radio" name="graduate" value="yes" required />Yes
+          </label>
+          <label> 
+            <input type="radio" name="graduate" value="no" required /> No
+          </label>
+
+          <select name="department">
+            <option value="">Select Department</option>
+            <option value="CSE">Computer Science & Engineering (CSE)</option>
+            <option value="EEE">
+              Electrical & Electronic Engineering (EEE)
+            </option>
+            <option value="CIVIL">Civil Engineering (CIVIL)</option>
+            <!-- Add other departments as needed -->
+          </select>
+
+          <input
+            type="text"
+            name="organization"
+            placeholder="Organization (if relevant)"
+          />
+
+          <input
+            type="text"
+            name="present-position"
+            placeholder="Present Position (if relevant)"
+          />
+
+          <label>Purpose of Donation </label>
+          <select name="donation-purpose" required>
+            <option value="">Select Purpose</option>
+            <option value="Corona Pandemic">Fight Corona Pandemic</option>
+            <option value="Reunion Sponsorship">Reunion Sponsorship</option>
+            <option value="Others">Others</option>
+            <!-- Add other purposes as needed -->
+          </select>
+
+          <input
+            type="number"
+            name="donation-amount"
+            placeholder="Amount of Donation *"
+            required
+          />
+
+          <textarea name="comments" placeholder="Comments"></textarea>
+
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <script>
+      // script.js
+      const getStartedBtn = document.getElementById("getStartedBtn");
+      const popupForm = document.getElementById("popupForm");
+      const closeBtn = document.getElementById("closeBtn");
+      const form = document.querySelector("form");
+
+      getStartedBtn.addEventListener("click", () => {
+        popupForm.style.display = "block";
+      });
+
+      closeBtn.addEventListener("click", () => {
+        popupForm.style.display = "none";
+      });
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault(); // Prevent the default form submission behavior
+
+        // Get form data
+        const fullName = form.elements["full-name"].value;
+        const mobileNumber = form.elements["mobile-number"].value;
+        const isGraduate =
+          form.elements["graduate"].value === "yes"
+            ? "BAUET Graduate"
+            : "Not a Graduate";
+        const email = form.elements["email"].value;
+        // Save form data to localStorage or send it to the server, depending on your requirements
+        // For this example, let's store it in localStorage
+        localStorage.setItem("fullName", fullName);
+        localStorage.setItem("mobileNumber", mobileNumber);
+        localStorage.setItem("isGraduate", isGraduate);
+        localStorage.setItem("email", email);
+
+        // Redirect to the new page where the form information will be displayed
+        window.location.href = "result.html";
+      });
+    </script>
+  </body>
+</html>

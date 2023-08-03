@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"])) {
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
     // Check if the file is a valid image
-    if (isset($_POST["submit"])) {
+    if (isset($_POST["submit"]) && !empty($_FILES["photo"]["tmp_name"])) {
         $check = getimagesize($_FILES["photo"]["tmp_name"]);
         if ($check === false) {
             echo "File is not an image.";
@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["coverphoto"])) {
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
     // Check if the file is a valid image
-    if (isset($_POST["submit"])) {
+    if (isset($_POST["submit"]) && !empty($_FILES["coverphoto"]["tmp_name"])) {
         $check = getimagesize($_FILES["coverphoto"]["tmp_name"]);
         if ($check === false) {
             echo "File is not an image.";
@@ -124,67 +124,8 @@ mysqli_close($connection);
     <link rel="stylesheet" type="text/css" href="css/std.css"/>
     <style>
         body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 150vh;
-    margin: 0;
-    background-color: #f0f0f0;
-}
-
-.edit-profile-form {
-    max-width: 400px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.edit-profile-form h2 {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.edit-profile-form label {
-    display: block;
-    margin-bottom: 10px;
-}
-
-.edit-profile-form input[type="text"],
-.edit-profile-form input[type="date"],
-.edit-profile-form input[type="file"] {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-}
-
-.edit-profile-form img {
-    display: block;
-    margin: 10px auto;
-    max-width: 200px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.edit-profile-form input[type="submit"] {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.edit-profile-form input[type="submit"]:hover {
-    background-color: #0056b3;
-}
+            /* Add your custom styles here */
+        }
     </style>
 </head>
 <body>
