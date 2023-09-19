@@ -40,66 +40,46 @@ if (mysqli_num_rows($result) == 1) {
     $currently_worked = $row['currently_worked'];
     $livein = $row['livein'];
     $coverphoto = $row['coverphoto'];
+    $cv = $row['cv'];
 }
 
 // Handle profile photo update
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"])) {
-    $target_dir = "photo_uploads/";
-    $target_file = $target_dir . basename($_FILES["photo"]["name"]);
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-    // Check if the file is a valid image
-    if (isset($_POST["submit"]) && !empty($_FILES["photo"]["tmp_name"])) {
-        $check = getimagesize($_FILES["photo"]["tmp_name"]);
-        if ($check === false) {
-            echo "File is not an image.";
-            exit;
-        }
-    }
-
-    // Move the uploaded file to the photo_uploads folder with the original filename
-    if (move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
-        $photo = $target_file;
-    }
+    // ... (your existing photo upload code)
 }
 
 // Handle cover photo update
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["coverphoto"])) {
-    $target_dir = "coverphoto/";
-    $target_file = $target_dir . basename($_FILES["coverphoto"]["name"]);
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    // ... (your existing cover photo upload code)
+}
 
-    // Check if the file is a valid image
-    if (isset($_POST["submit"]) && !empty($_FILES["coverphoto"]["tmp_name"])) {
-        $check = getimagesize($_FILES["coverphoto"]["tmp_name"]);
-        if ($check === false) {
-            echo "File is not an image.";
+// Handle CV (resume) update
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["cv"])) {
+    $target_dir = "cv_uploads/";
+    $target_file = $target_dir . basename($_FILES["cv"]["name"]);
+    $cvFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+    // Check if the file is a valid document (PDF, DOC, DOCX)
+    if (isset($_POST["submit"]) && !empty($_FILES["cv"]["tmp_name"])) {
+        $allowedExtensions = array("pdf", "doc", "docx");
+        if (!in_array($cvFileType, $allowedExtensions)) {
+            echo "Invalid CV file format. Please upload a PDF, DOC, or DOCX file.";
             exit;
         }
     }
 
-    // Move the uploaded file to the coverphoto folder with the original filename
-    if (move_uploaded_file($_FILES["coverphoto"]["tmp_name"], $target_file)) {
-        $coverphoto = $target_file;
+    // Move the uploaded CV file to the cv_uploads folder with the original filename
+    if (move_uploaded_file($_FILES["cv"]["tmp_name"], $target_file)) {
+        $cv = $target_file;
     }
 }
 
 // Update user profile information in the database
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $first_name = $_POST["first_name"];
-    $last_name = $_POST["last_name"];
-    $father_name = $_POST["father_name"];
-    $mother_name = $_POST["mother_name"];
-    $date_of_birth = $_POST["date_of_birth"];
-    $batch = $_POST["batch"];
-    $department = $_POST["department"];
-    $session_year = $_POST["session_year"];
-    $mobile = $_POST["mobile"];
-    $currently_worked = $_POST["currently_worked"];
-    $livein = $_POST["livein"];
+    // ... (your existing profile update code)
 
     // Update the user's profile information in the database
-    $update_query = "UPDATE students SET first_name='$first_name', last_name='$last_name', father_name='$father_name', mother_name='$mother_name', date_of_birth='$date_of_birth', batch='$batch', department='$department', session_year='$session_year', mobile='$mobile', currently_worked='$currently_worked', livein='$livein', photo='$photo', coverphoto='$coverphoto' WHERE student_id='$student_id'";
+    $update_query = "UPDATE students SET first_name='$first_name', last_name='$last_name', father_name='$father_name', mother_name='$mother_name', date_of_birth='$date_of_birth', batch='$batch', department='$department', session_year='$session_year', mobile='$mobile', currently_worked='$currently_worked', livein='$livein', photo='$photo', coverphoto='$coverphoto', cv='$cv' WHERE student_id='$student_id'";
     $update_result = mysqli_query($connection, $update_query);
 
     if ($update_result) {
@@ -113,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 mysqli_close($connection);
 ?>
-
+c
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -123,9 +103,76 @@ mysqli_close($connection);
     <link rel="stylesheet" type="text/css" href="css/std.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/std.css"/>
     <style>
-        body {
-            /* Add your custom styles here */
-        }
+       /* Reset default margin and padding for all elements */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style the body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+/* Style the form container */
+.edit-profile-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style form headings */
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Style labels and input fields */
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Style the image previews */
+img {
+    margin-top: 10px;
+    max-width: 100px;
+    max-height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Style the submit button */
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
     </style>
 </head>
 <body>
@@ -181,6 +228,14 @@ mysqli_close($connection);
             <!-- Current Cover Photo -->
             <?php if ($coverphoto): ?>
                 <img src="<?php echo $coverphoto; ?>" width="100" height="100">
+            <?php endif; ?>
+ <!-- CV (Resume) -->
+ <label for="cv">CV (Resume):</label>
+            <input type="file" id="cv" name="cv" accept=".pdf, .doc, .docx"><br>
+
+            <!-- Display current CV file name -->
+            <?php if ($cv): ?>
+                Current CV: <?php echo basename($cv); ?><br>
             <?php endif; ?>
 
             <input type="submit" name="submit" value="Save Changes">

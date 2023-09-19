@@ -87,7 +87,7 @@ $email = $_SESSION['email'];
         </li>
 
         <li>
-          <a href="#">
+          <a href="/alumni/control.php">
             <i class="bx bx-cog"></i>
             <span class="links_name">Setting</span>
           </a>

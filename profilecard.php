@@ -129,6 +129,21 @@
     color: #fff;
     cursor: pointer;
   }
+
+  .pdf-button {
+      padding: 10px 20px;
+      background-color: #1fc9af;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .pdf-button:hover {
+      background-color: #2a5db0;
+    }
   </style>
 </head>
 <body>
@@ -136,95 +151,94 @@
 include 'nav.php';
 ?>
 
-
-
-  <div class="container">
-    
+<div class="container">
   <form method="GET" action="">
     <input type="text" name="search" placeholder="Search by First Name" />
     <input type="submit" value="Search" />
   </form>
 </div>
-  <?php
-  // Establish database connection
-  $servername = "localhost";
-  $username = "root";
-  $password = "";
-  $database = "alumni";
+<?php
+// Establish database connection
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "alumni";
 
-  $connection = mysqli_connect($servername, $username, $password, $database);
+$connection = mysqli_connect($servername, $username, $password, $database);
 
-  if (!$connection) {
-      die("Connection failed: " . mysqli_connect_error());
-  }
+if (!$connection) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 
-  // Retrieve student information from the database
-  $sql = "SELECT * FROM students";
-  
-  // Check if a search query is provided
-  if (isset($_GET['search'])) {
-    $search = $_GET['search'];
-    $sql .= " WHERE first_name LIKE '%$search%'";
-  }
+// Retrieve student information from the database
+$sql = "SELECT * FROM students";
 
-  $result = mysqli_query($connection, $sql);
+// Check if a search query is provided
+if (isset($_GET['search'])) {
+  $search = $_GET['search'];
+  $sql .= " WHERE first_name LIKE '%$search%'";
+}
 
-  if (mysqli_num_rows($result) > 0) {
-    while ($row = mysqli_fetch_assoc($result)) {
+$result = mysqli_query($connection, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+  while ($row = mysqli_fetch_assoc($result)) {
+    echo '
+    <div class="profile-card">
+      ';
+
+    if (!empty($row['photo'])) {
       echo '
-      <div class="profile-card">
-        ';
-
-      if (!empty($row['photo'])) {
-        echo '
-        <img src="' . $row['photo'] . '" alt="Profile Picture" onclick="showFullScreen(this)">
-        ';
-      }
-
-      echo '
-        <h2>' . $row['first_name'] . ' ' . $row['last_name'] . '</h2>
-        <p><strong>Student ID:</strong> ' . $row['student_id'] . '</p>
-        <p><strong>Date of Birth:</strong> ' . $row['date_of_birth'] . '</p>
-        <p><strong>Batch:</strong> ' . $row['batch'] . '</p>
-        <p><strong>Department:</strong> ' . $row['department'] . '</p>
-        <p><strong>Session Year:</strong> ' . $row['session_year'] . '</p>
-        <p><strong>Mobile:</strong> ' . $row['mobile'] . '</p>
-        <p><strong>Email:</strong> <a href="mailto:' . $row['email'] . '">' . $row['email'] . '</a></p>
-        <p><strong>Currently Worked:</strong> ' . $row['currently_worked'] . '</p>
-      </div>
+      <img src="' . $row['photo'] . '" alt="Profile Picture" onclick="showFullScreen(this)">
       ';
     }
-  } else {
+
     echo '
-    <p>No student profiles found.</p>
+      <h2>' . $row['first_name'] . ' ' . $row['last_name'] . '</h2>
+      <!-- Add a button for viewing the PDF -->
+      <a href="pdf_viewer.php?student_id=' . $row['student_id'] . '" class="pdf-button">View CV PDF</a>
+      <p><strong>Student ID:</strong> ' . $row['student_id'] . '</p>
+      <p><strong>Date of Birth:</strong> ' . $row['date_of_birth'] . '</p>
+      <p><strong>Batch:</strong> ' . $row['batch'] . '</p>
+      <p><strong>Department:</strong> ' . $row['department'] . '</p>
+      <p><strong>Session Year:</strong> ' . $row['session_year'] . '</p>
+      <p><strong>Mobile:</strong> ' . $row['mobile'] . '</p>
+      <p><strong>Email:</strong> <a href="mailto:' . $row['email'] . '">' . $row['email'] . '</a></p>
+      <p><strong>Currently Worked:</strong> ' . $row['currently_worked'] . '</p>
+    </div>
     ';
   }
+} else {
+  echo '
+  <p>No student profiles found.</p>
+  ';
+}
 
-  mysqli_close($connection);
-  ?>
+mysqli_close($connection);
+?>
 
-  <!-- Full Screen Modal -->
-  <div id="modal-container" class="modal-container" onclick="hideFullScreen()">
-    <div class="modal-content">
-      <img id="modal-image" class="modal-image" alt="Full Screen Image">
-    </div>
-    <span class="close-button">&times;</span>
+<!-- Full Screen Modal -->
+<div id="modal-container" class="modal-container" onclick="hideFullScreen()">
+  <div class="modal-content">
+    <img id="modal-image" class="modal-image" alt="Full Screen Image">
   </div>
-  <?php
+  <span class="close-button">&times;</span>
+</div>
+<?php
 include 'footter.php';
 ?>
-  <script>
-    function showFullScreen(img) {
-      var modalContainer = document.getElementById("modal-container");
-      var modalImage = document.getElementById("modal-image");
-      modalImage.src = img.src;
-      modalContainer.style.display = "flex";
-    }
+<script>
+  function showFullScreen(img) {
+    var modalContainer = document.getElementById("modal-container");
+    var modalImage = document.getElementById("modal-image");
+    modalImage.src = img.src;
+    modalContainer.style.display = "flex";
+  }
 
-    function hideFullScreen() {
-      var modalContainer = document.getElementById("modal-container");
-      modalContainer.style.display = "none";
-    }
-  </script>
+  function hideFullScreen() {
+    var modalContainer = document.getElementById("modal-container");
+    modalContainer.style.display = "none";
+  }
+</script>
 </body>
 </html>

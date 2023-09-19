@@ -124,6 +124,11 @@ include 'nav.php';
                         <i class="fas fa-plus-circle"></i>
                         <a href="edit_profile.php">Edit Profile</a>
                     </span>
+
+                    <span>
+                        <i class="fas fa-plus-circle"></i>
+                        <a href="cv_update.php">Cv update</a>
+                    </span>
                 </div>
             </div>
         </div>
