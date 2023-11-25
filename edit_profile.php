@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $conn->query($query);
 
     // Optionally, you can redirect the user to a different page after saving changes
-    header('Location: profile.php');
+    header('Location: stdprofile.php');
     exit;
 }
 
