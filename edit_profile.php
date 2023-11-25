@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (!empty($_FILES['cv']['name'])) {
         $cv_name = $_FILES['cv']['name'];
-        $cv_path = 'uploadcv/' . $cv_name;
+        $cv_path = 'uploads/' . $cv_name;
         move_uploaded_file($_FILES['cv']['tmp_name'], $cv_path);
     }
 
@@ -91,15 +91,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         mobile='$mobile', 
         currently_worked='$currently_worked', 
         livein='$livein',
-        photo='$photo_path',
-        coverphoto='$cover_photo_path',
-        cv='$cv_path'
+        photo=IF('$photo_path'='', photo, '$photo_path'),
+        coverphoto=IF('$cover_photo_path'='', coverphoto, '$cover_photo_path'),
+        cv=IF('$cv_path'='', cv, '$cv_path')
         WHERE email='$email'";
 
     $conn->query($query);
 
     // Optionally, you can redirect the user to a different page after saving changes
-    header('Location: stdprofile.php');
+    header('Location: profile.php');
     exit;
 }
 
@@ -115,6 +115,66 @@ if ($result->num_rows > 0) {
     echo "<html>
             <head>
                 <title>Edit Profile</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        margin: 20px;
+                        background-color: #f5f5f5;
+                    }
+
+                    h2 {
+                        color: #333;
+                    }
+
+                    form {
+                        max-width: 600px;
+                        margin: 20px auto;
+                        background-color: #fff;
+                        padding: 20px;
+                        border-radius: 8px;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    }
+
+                    input[type='text'],
+                    input[type='file'] {
+                        width: calc(100% - 22px);
+                        padding: 10px;
+                        margin-bottom: 15px;
+                        border: 1px solid #ccc;
+                        border-radius: 4px;
+                        box-sizing: border-box;
+                        display: inline-block;
+                    }
+
+                    input[type='submit'] {
+                        background-color: #4caf50;
+                        color: white;
+                        padding: 15px;
+                        border: none;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        font-size: 16px;
+                    }
+
+                    input[type='checkbox'] {
+                        margin-right: 5px;
+                    }
+
+                    img {
+                        max-width: 100%;
+                        height: auto;
+                        margin-bottom: 10px;
+                    }
+
+                    a {
+                        text-decoration: none;
+                        color: #007bff;
+                    }
+
+                    a:hover {
+                        text-decoration: underline;
+                    }
+                </style>
             </head>
             <body>
                 <h2>Edit Profile</h2>
