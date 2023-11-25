@@ -71,6 +71,7 @@
     margin: 10px;
     width: 300px;
     text-align: center;
+    padding-bottom: 20px;
   }
 
   .profile-card img {
@@ -196,7 +197,7 @@ if (mysqli_num_rows($result) > 0) {
     echo '
       <h2>' . $row['first_name'] . ' ' . $row['last_name'] . '</h2>
       <!-- Add a button for viewing the PDF -->
-      <a href="pdf_viewer.php?student_id=' . $row['student_id'] . '" class="pdf-button">View CV PDF</a>
+    
       <p><strong>Student ID:</strong> ' . $row['student_id'] . '</p>
       <p><strong>Date of Birth:</strong> ' . $row['date_of_birth'] . '</p>
       <p><strong>Batch:</strong> ' . $row['batch'] . '</p>
@@ -205,6 +206,7 @@ if (mysqli_num_rows($result) > 0) {
       <p><strong>Mobile:</strong> ' . $row['mobile'] . '</p>
       <p><strong>Email:</strong> <a href="mailto:' . $row['email'] . '">' . $row['email'] . '</a></p>
       <p><strong>Currently Worked:</strong> ' . $row['currently_worked'] . '</p>
+      <a href="pdf_viewer.php?student_id=' . $row['student_id'] . '" class="pdf-button">View CV PDF</a>
     </div>
     ';
   }

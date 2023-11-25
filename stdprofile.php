@@ -67,10 +67,33 @@ mysqli_close($connection);
       type="text/css"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
     />
+    <style>
+    @keyframes marquee {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
 
+    .marquee-container {
+      white-space: nowrap;
+      overflow: hidden;
+      position: relative;
+      animation: marquee 60s linear infinite; /* Adjust the duration as needed */
+    }
+
+    .marquee-content {
+      display: inline-block;
+      padding: 10px; /* Adjust the padding as needed */
+    }
+  </style>
 </head>
 
 <body>
+
+
     
 <?php
 include 'nav.php';
@@ -86,6 +109,12 @@ include 'nav.php';
             <div class="bg-color"></div>
         </div>
     </div>
+
+<div class="marquee-container">
+  <div class="marquee-content">
+    Your moving notice goes here. This can be a message, announcement, or any other content you want to display.
+  </div>
+</div>
 
     <section class="cover-image-section">
         <header class="cover-hader-site">
@@ -126,9 +155,9 @@ include 'nav.php';
                     </span>
 
                     <span>
-                        <i class="fas fa-plus-circle"></i>
-                        <a href="cv_update.php">Cv update</a>
-                    </span>
+    <i class="fas fa-plus-circle"></i>
+    <a href="#" id="cvUpdateLink">Cv update</a>
+</span>
                 </div>
             </div>
         </div>
@@ -300,7 +329,7 @@ if (mysqli_num_rows($post_result) > 0) {
                 </div> -->
             </div>
         </div>
-HTML;
+HTML;   
     }
 } else {
     // Display a message if there are no posts for the current user

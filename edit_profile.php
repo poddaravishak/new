@@ -13,233 +13,127 @@ $username = "root";
 $password = "";
 $database = "alumni";
 
-$connection = mysqli_connect($servername, $username, $password, $database);
+$conn = new mysqli($servername, $username, $password, $database);
 
-if (!$connection) {
-    die("Connection failed: " . mysqli_connect_error());
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 
-// Retrieve user information from the database
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Handle saving changes to the database
+    $email = $_SESSION['email'];
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
+    $father_name = $_POST['father_name'];
+    $mother_name = $_POST['mother_name'];
+    $date_of_birth = $_POST['date_of_birth'];
+    $batch = $_POST['batch'];
+    $department = $_POST['department'];
+    $session_year = $_POST['session_year'];
+    $mobile = $_POST['mobile'];
+    $currently_worked = $_POST['currently_worked'];
+    $livein = $_POST['livein'];
+
+    // Handle photo upload logic
+    $photo_path = $row['photo']; // Default to the existing photo path
+
+    if (!empty($_FILES['photo']['name'])) {
+        $photo_name = $_FILES['photo']['name'];
+        $photo_path = 'uploads/' . $photo_name;
+        move_uploaded_file($_FILES['photo']['tmp_name'], $photo_path);
+    }
+
+    // Handle cover photo upload logic
+    $cover_photo_path = $row['coverphoto']; // Default to the existing cover photo path
+
+    if (!empty($_FILES['cover_photo']['name'])) {
+        $cover_photo_name = $_FILES['cover_photo']['name'];
+        $cover_photo_path = 'uploads/' . $cover_photo_name;
+        move_uploaded_file($_FILES['cover_photo']['tmp_name'], $cover_photo_path);
+    }
+
+    // Check if the user wants to remove the profile photo
+    if (isset($_POST['remove_photo'])) {
+        $photo_path = ''; // Set the photo path to an empty string to remove the photo
+    }
+
+    // Check if the user wants to remove the cover photo
+    if (isset($_POST['remove_cover_photo'])) {
+        $cover_photo_path = ''; // Set the cover photo path to an empty string to remove the cover photo
+    }
+
+    // Update user information in the database
+    $query = "UPDATE students SET 
+        first_name='$first_name', 
+        last_name='$last_name', 
+        father_name='$father_name', 
+        mother_name='$mother_name', 
+        date_of_birth='$date_of_birth', 
+        batch='$batch', 
+        department='$department', 
+        session_year='$session_year', 
+        mobile='$mobile', 
+        currently_worked='$currently_worked', 
+        livein='$livein',
+        photo='$photo_path',
+        coverphoto='$cover_photo_path'
+        WHERE email='$email'";
+
+    $conn->query($query);
+
+    // Optionally, you can redirect the user to a different page after saving changes
+    header('Location: profile.php');
+    exit;
+}
+
+// Query to retrieve user information
 $email = $_SESSION['email'];
 $query = "SELECT * FROM students WHERE email = '$email'";
-$result = mysqli_query($connection, $query);
+$result = $conn->query($query);
 
-if (mysqli_num_rows($result) == 1) {
-    $row = mysqli_fetch_assoc($result);
-    $student_id = $row['student_id'];
-    $first_name = $row['first_name'];
-    $last_name = $row['last_name'];
-    $father_name = $row['father_name'];
-    $mother_name = $row['mother_name'];
-    $date_of_birth = $row['date_of_birth'];
-    $batch = $row['batch'];
-    $department = $row['department'];
-    $session_year = $row['session_year'];
-    $photo = $row['photo'];
-    $mobile = $row['mobile'];
-    $currently_worked = $row['currently_worked'];
-    $livein = $row['livein'];
-    $coverphoto = $row['coverphoto'];
-    $cv = $row['cv'];
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+
+    // Display user information in an editable form
+    echo "<html>
+            <head>
+                <title>Edit Profile</title>
+            </head>
+            <body>
+                <h2>Edit Profile</h2>
+                <form action='' method='post' enctype='multipart/form-data'>
+                    First Name: <input type='text' name='first_name' value='{$row['first_name']}'><br>
+                    Last Name: <input type='text' name='last_name' value='{$row['last_name']}'><br>
+                    Father Name: <input type='text' name='father_name' value='{$row['father_name']}'><br>
+                    Mother Name: <input type='text' name='mother_name' value='{$row['mother_name']}'><br>
+                    Date of Birth: <input type='text' name='date_of_birth' value='{$row['date_of_birth']}'><br>
+                    Batch: <input type='text' name='batch' value='{$row['batch']}'><br>
+                    Department: <input type='text' name='department' value='{$row['department']}'><br>
+                    Session Year: <input type='text' name='session_year' value='{$row['session_year']}'><br>
+                    Mobile: <input type='text' name='mobile' value='{$row['mobile']}'><br>
+                    Currently Worked: <input type='text' name='currently_worked' value='{$row['currently_worked']}'><br>
+                    Live In: <input type='text' name='livein' value='{$row['livein']}'><br>
+
+                    <!-- Display existing photo -->
+                    Existing Photo: <img src='{$row['photo']}' alt='User Photo' width='100'><br>
+                    Photo: <input type='file' name='photo'><br>
+                    <label>Remove Photo: <input type='checkbox' name='remove_photo'></label><br>
+
+                    <!-- Display existing cover photo -->
+                    Existing Cover Photo: <img src='{$row['coverphoto']}' alt='Cover Photo' width='100'><br>
+                    Cover Photo: <input type='file' name='cover_photo'><br>
+                    <label>Remove Cover Photo: <input type='checkbox' name='remove_cover_photo'></label><br>
+
+                    <input type='submit' value='Save Changes'>
+                </form>
+            </body>
+        </html>";
+} else {
+    echo "User not found";
 }
 
-// Handle profile photo update
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"])) {
-    // ... (your existing photo upload code)
-}
-
-// Handle cover photo update
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["coverphoto"])) {
-    // ... (your existing cover photo upload code)
-}
-
-// Handle CV (resume) update
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["cv"])) {
-    $target_dir = "cv_uploads/";
-    $target_file = $target_dir . basename($_FILES["cv"]["name"]);
-    $cvFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-    // Check if the file is a valid document (PDF, DOC, DOCX)
-    if (isset($_POST["submit"]) && !empty($_FILES["cv"]["tmp_name"])) {
-        $allowedExtensions = array("pdf", "doc", "docx");
-        if (!in_array($cvFileType, $allowedExtensions)) {
-            echo "Invalid CV file format. Please upload a PDF, DOC, or DOCX file.";
-            exit;
-        }
-    }
-
-    // Move the uploaded CV file to the cv_uploads folder with the original filename
-    if (move_uploaded_file($_FILES["cv"]["tmp_name"], $target_file)) {
-        $cv = $target_file;
-    }
-}
-
-// Update user profile information in the database
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // ... (your existing profile update code)
-
-    // Update the user's profile information in the database
-    $update_query = "UPDATE students SET first_name='$first_name', last_name='$last_name', father_name='$father_name', mother_name='$mother_name', date_of_birth='$date_of_birth', batch='$batch', department='$department', session_year='$session_year', mobile='$mobile', currently_worked='$currently_worked', livein='$livein', photo='$photo', coverphoto='$coverphoto', cv='$cv' WHERE student_id='$student_id'";
-    $update_result = mysqli_query($connection, $update_query);
-
-    if ($update_result) {
-        // Redirect to the profile page after successful update
-        header('Location: profile.php');
-        exit;
-    } else {
-        echo "Error updating profile: " . mysqli_error($connection);
-    }
-}
-
-mysqli_close($connection);
+// Close the database connection
+$conn->close();
 ?>
-c
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Edit Profile</title>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" type="text/css" href="css/std.min.css"/>
-    <link rel="stylesheet" type="text/css" href="css/std.css"/>
-    <style>
-       /* Reset default margin and padding for all elements */
-* {
-    margin: 0;
-    padding: 0;
-}
-
-/* Style the body */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    padding: 20px;
-}
-
-/* Style the form container */
-.edit-profile-form {
-    max-width: 600px;
-    margin: 0 auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Style form headings */
-h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-/* Style labels and input fields */
-label {
-    display: block;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-input[type="text"],
-input[type="date"],
-input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-/* Style the image previews */
-img {
-    margin-top: 10px;
-    max-width: 100px;
-    max-height: 100px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-/* Style the submit button */
-input[type="submit"] {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-input[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
-    </style>
-</head>
-<body>
-    <div class="edit-profile-form">
-        <h2>Edit Profile</h2>
-        <form action="edit_profile.php" method="post" enctype="multipart/form-data">
-            <label for="first_name">First Name:</label>
-            <input type="text" id="first_name" name="first_name" value="<?php echo $first_name; ?>"><br>
-
-            <label for="last_name">Last Name:</label>
-            <input type="text" id="last_name" name="last_name" value="<?php echo $last_name; ?>"><br>
-
-            <label for="father_name">Father's Name:</label>
-            <input type="text" id="father_name" name="father_name" value="<?php echo $father_name; ?>"><br>
-
-            <label for="mother_name">Mother's Name:</label>
-            <input type="text" id="mother_name" name="mother_name" value="<?php echo $mother_name; ?>"><br>
-
-            <label for="date_of_birth">Date of Birth:</label>
-            <input type="date" id="date_of_birth" name="date_of_birth" value="<?php echo $date_of_birth; ?>"><br>
-
-            <label for="batch">Batch:</label>
-            <input type="text" id="batch" name="batch" value="<?php echo $batch; ?>"><br>
-
-            <label for="department">Department:</label>
-            <input type="text" id="department" name="department" value="<?php echo $department; ?>"><br>
-
-            <label for="session_year">Session Year:</label>
-            <input type="text" id="session_year" name="session_year" value="<?php echo $session_year; ?>"><br>
-
-            <label for="mobile">Mobile:</label>
-            <input type="text" id="mobile" name="mobile" value="<?php echo $mobile; ?>"><br>
-
-            <label for="currently_worked">Currently Worked:</label>
-            <input type="text" id="currently_worked" name="currently_worked" value="<?php echo $currently_worked; ?>"><br>
-
-            <label for="livein">Live In:</label>
-            <input type="text" id="livein" name="livein" value="<?php echo $livein; ?>"><br>
-
-            <!-- Profile Photo -->
-            <label for="photo">Profile Photo:</label>
-            <input type="file" id="photo" name="photo" accept="image/*"><br>
-
-            <!-- Current Profile Photo -->
-            <?php if ($photo): ?>
-                <img src="<?php echo $photo; ?>" width="100" height="100">
-            <?php endif; ?>
-
-            <!-- Cover Photo -->
-            <label for="coverphoto">Cover Photo:</label>
-            <input type="file" id="coverphoto" name="coverphoto" accept="image/*"><br>
-
-            <!-- Current Cover Photo -->
-            <?php if ($coverphoto): ?>
-                <img src="<?php echo $coverphoto; ?>" width="100" height="100">
-            <?php endif; ?>
- <!-- CV (Resume) -->
- <label for="cv">CV (Resume):</label>
-            <input type="file" id="cv" name="cv" accept=".pdf, .doc, .docx"><br>
-
-            <!-- Display current CV file name -->
-            <?php if ($cv): ?>
-                Current CV: <?php echo basename($cv); ?><br>
-            <?php endif; ?>
-
-            <input type="submit" name="submit" value="Save Changes">
-        </form>
-    </div>
-</body>
-</html>

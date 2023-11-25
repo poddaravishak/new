@@ -57,10 +57,37 @@
     <!-- responsive style -->
     <link href="css/responsive.css" rel="stylesheet" />
     <link href="test.css" rel="stylesheet" />
+    <style>
+       .donation-bar {
+            background-color: #4CAF50; /* Green color */
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+
+        .donation-text {
+            font-size: 18px;
+        }
+
+        .donate-button {
+            background-color: #f44336; /* Red color */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
   </head>
 
   <body>
+ 
     <div class="hero_area">
+    
       <!-- header section strats -->
       <header class="header_section">
         <div class="header_top">
@@ -78,6 +105,11 @@
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                 <span> Qadirabad, Dayarampur, Natore-6431, Bangladesh </span>
               </a>
+              <a href="./donetion.html">
+    <i class="fa fa-donation" aria-hidden="true"></i>
+    <span style="color: #FF0000;">DONATION</span>
+</a>
+
             </div>
           </div>
         </div>
@@ -114,20 +146,20 @@
                       <a class="nav-link" href="about.html"> About</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="treatment.html"
+                      <a class="nav-link" href="./eventshow.php"
                         >Program & Events</a
                       >
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="doctor.html">Alumni Story</a>
+                      <a class="nav-link" href="./alumnistory.php">Alumni Post</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="testimonial.html"
-                        >Career Opputtunite</a
+                      <a class="nav-link" href="profilecard.php"
+                        >ALL ALUMNI</a
                       >
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="contact.html">Contact Us</a>
+                      <a class="nav-link" href="./contact/Contact.html">Contact Us</a>
                     </li>
                   </ul>
                 </div>
@@ -140,9 +172,13 @@
                     <i class="fa fa-user" aria-hidden="true"></i>
                     <span> Sign Up </span>
                   </a>
+                  <a href="stdprofile.php">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <span> Profile </span>
+                  </a>
                   <form class="form-inline">
                     <button
-                      class="btn my-2 my-sm-0 nav_search-btn"
+                      class="btn my-2 my-sm-0 nav_searsch-btn"
                       type="submit"
                     >
                       <i class="fa fa-search" aria-hidden="true"></i>
@@ -300,7 +336,7 @@
     </div>
 
     
-    
+  
     <section class="sectionmid">
   <div class="blue-div">
     <h1>Notice</h1>
@@ -315,8 +351,7 @@
       </thead>
       <tbody>
         <?php
-        // Assuming you have already established a database connection using the config.php file
-        // Replace the placeholders with your actual database credentials
+        
         $host = "localhost";
         $username = "root";
         $password = "";
@@ -355,10 +390,17 @@
         ?>
       </tbody>
     </table>
+
+   
   </div>
+ 
 </section>
+
+
 <h1> Image Gallery</h1>
+
 <section class="thirdsection">
+
     <?php
     // Database connection configuration
     $host = 'localhost';
@@ -393,7 +435,7 @@
 </section>
 
 
- 
+
 
 <?php
 include 'footter.php';

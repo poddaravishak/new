@@ -29,8 +29,13 @@ $email = $_SESSION['email'];
       rel="stylesheet"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   </head>
   <body>
+  <div class="donation-bar">
+        <div class="donation-text">Support us with a donation!</div>
+        <button class="donate-button">Donate Now</button>
+    </div>
     <div class="sidebar">
       <div class="logo-details">
         <i class="bx bxl-admin icon"></i>

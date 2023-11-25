@@ -2,39 +2,44 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/timeline.css" />
-    <title>Document</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Arial", sans-serif;
+      }
+
+      .donation-bar {
+        background-color: #4caf50; /* Green color */
+        color: white;
+        text-align: center;
+        padding: 10px;
+        position: fixed;
+        top: 0;
+        width: 100%;
+      }
+
+      .donation-text {
+        font-size: 18px;
+      }
+
+      .donate-button {
+        background-color: #f44336; /* Red color */
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+    </style>
   </head>
   <body>
-  
-
-      <div class="timeline-card">
-        <div class="post-header">
-          <img class="user-avatar" src="/cursor.png" alt="User Avatar" />
-          <div class="post-user-info">
-            <h3>User Name</h3>
-            <p>Posted on August 1, 2023</p>
-          </div>
-        </div>
-        <div class="post-content">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-            aliquam nulla ac ligula dignissim, eu pulvinar mauris fringilla.
-            Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-            posuere cubilia Curae.
-          </p>
-        </div>
-        <div class="post-actions">
-          <button>Like</button>
-          <button>Comment</button>
-          <button>Share</button>
-        </div>
-      </div>
-
-      <div class="right-side"> </div>
+    <div class="donation-bar">
+      <div class="donation-text">Support us with a donation!</div>
+      <button class="donate-button">Donate Now</button>
     </div>
 
-    
+    <!-- Your content goes here -->
   </body>
 </html>

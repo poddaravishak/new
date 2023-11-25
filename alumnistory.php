@@ -1,45 +1,117 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Alumni Story Upload</title>
-</head>
-<body>
-    <h1>Alumni Story Upload</h1>
-
-    <?php
-    // Check if the form is submitted
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Include the database connection code
-        require_once 'database.php';
-
-        // Retrieve form data
-        $title = $_POST['title'];
-        $date = $_POST['date'];
-        $content = $_POST['content'];
-
-        // Prepare and execute the SQL statement to insert data into the "story" table
-        $sql = "INSERT INTO story (title, date, content) VALUES ('$title', '$date', '$content')";
-        if ($conn->query($sql) === TRUE) {
-            echo "Story uploaded successfully.";
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="hf.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    />
+    <title>User Information</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
         }
 
-        $conn->close();
-    }
-    ?>
+        .flex-container {
+            display: flex;
+         
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh;
+        }
 
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-        <label for="title">Title:</label>
-        <input type="text" name="title" id="title" required><br><br>
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            margin: 20px;
+        }
 
-        <label for="date">Date:</label>
-        <input type="date" name="date" id="date" required><br><br>
+        img {
+            max-width: 100%;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
 
-        <label for="content">Story:</label>
-        <textarea name="content" id="content" rows="5" required></textarea><br><br>
+        h3 {
+            margin-bottom: 10px;
+        }
 
-        <input type="submit" value="Upload Story">
-    </form>
+        p {
+            margin-bottom: 15px;
+        }
+
+        hr {
+            border: 0.5px solid #ccc;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <?php include 'nav.php'; ?>
+    </div>
+
+    <div class="flex-container">
+        <?php
+        // Establish a database connection
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $database = "alumni";
+
+        $connection = mysqli_connect($servername, $username, $password, $database);
+
+        if (!$connection) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+
+        // Fetch data from the database
+        $query = "SELECT * FROM all_post";
+        $result = mysqli_query($connection, $query);
+
+        // Check if there are any posts
+        if (mysqli_num_rows($result) > 0) {
+            // Loop through each row in the result set
+            while ($row = mysqli_fetch_assoc($result)) {
+                // Your HTML for displaying each post goes here
+                echo '<div class="card">';
+                
+                // Output the photo if available; otherwise, display a demo image
+                if (!empty($row["post_photo"])) {
+                    echo '<img src="' . $row["post_photo"] . '" alt="Post Photo">';
+                } else {
+                    echo '<img src="demo_image.jpg" alt="Demo Image">';
+                }
+
+                echo '<h3>Post Content</h3>';
+                echo '<p>' . $row["post_content"] . '</p>';
+                echo '<h3>Post Date</h3>';
+                echo '<p>' . $row["post_date"] . '</p>';
+
+                echo '<hr>';
+                echo '</div>';
+            }
+        } else {
+            // No posts found
+            echo "No posts found.";
+        }
+
+        // Close the database connection
+        mysqli_close($connection);
+        ?>
+    </div>
+    <?php
+include 'footter.php';
+?>
 </body>
 </html>
