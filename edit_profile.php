@@ -54,6 +54,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         move_uploaded_file($_FILES['cover_photo']['tmp_name'], $cover_photo_path);
     }
 
+    // Handle CV upload logic
+    $cv_path = $row['cv']; // Default to the existing CV path
+
+    if (!empty($_FILES['cv']['name'])) {
+        $cv_name = $_FILES['cv']['name'];
+        $cv_path = 'uploadcv/' . $cv_name;
+        move_uploaded_file($_FILES['cv']['tmp_name'], $cv_path);
+    }
+
     // Check if the user wants to remove the profile photo
     if (isset($_POST['remove_photo'])) {
         $photo_path = ''; // Set the photo path to an empty string to remove the photo
@@ -62,6 +71,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Check if the user wants to remove the cover photo
     if (isset($_POST['remove_cover_photo'])) {
         $cover_photo_path = ''; // Set the cover photo path to an empty string to remove the cover photo
+    }
+
+    // Check if the user wants to remove the CV
+    if (isset($_POST['remove_cv'])) {
+        $cv_path = ''; // Set the CV path to an empty string to remove the CV
     }
 
     // Update user information in the database
@@ -78,7 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         currently_worked='$currently_worked', 
         livein='$livein',
         photo='$photo_path',
-        coverphoto='$cover_photo_path'
+        coverphoto='$cover_photo_path',
+        cv='$cv_path'
         WHERE email='$email'";
 
     $conn->query($query);
@@ -125,6 +140,11 @@ if ($result->num_rows > 0) {
                     Existing Cover Photo: <img src='{$row['coverphoto']}' alt='Cover Photo' width='100'><br>
                     Cover Photo: <input type='file' name='cover_photo'><br>
                     <label>Remove Cover Photo: <input type='checkbox' name='remove_cover_photo'></label><br>
+
+                    <!-- Display existing CV -->
+                    Existing CV: <a href='{$row['cv']}' target='_blank'>View CV</a><br>
+                    CV: <input type='file' name='cv'><br>
+                    <label>Remove CV: <input type='checkbox' name='remove_cv'></label><br>
 
                     <input type='submit' value='Save Changes'>
                 </form>
